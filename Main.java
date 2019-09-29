@@ -51,9 +51,9 @@ public class Main
 				int len=listg.size();
 				File file=new File(filename);
 		        FileOutputStream out=new FileOutputStream(file,true);
-		        //StringBuffer sb=new StringBuffer();
-		       // sb.append("[");
-		        //out.write(sb.toString().getBytes("utf-8"));
+		        StringBuffer sb=new StringBuffer();
+		       sb.append("[");
+		        out.write(sb.toString().getBytes("utf-8"));
 		        out.close();
 				for(int i=0;i<len;i++) 
 				{
@@ -69,9 +69,9 @@ public class Main
 					StringBufferDemo(s,l,filename);
 				}
 				FileOutputStream out2=new FileOutputStream(file,true);
-		        //StringBuffer ss=new StringBuffer();
-		        //ss.append("]\t\n");
-		       // out2.write(ss.toString().getBytes("utf-8"));
+		        StringBuffer ss=new StringBuffer();
+		        ss.append("]\t\n");
+		        out2.write(ss.toString().getBytes("utf-8"));
 		        out2.close();
 			}
 			catch(IOException e)
@@ -90,7 +90,7 @@ public class Main
 	        	    StringBuffer sb=new StringBuffer();
 	        	    if(i==0)
 	        	    {
-	        	    	String st="{";
+	        	    	String st="{"level": 1,";
 	        	    	sb.append(st);
 	        	    }
 	        	    /*else if(i>0&&i<3)
