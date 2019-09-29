@@ -109,7 +109,7 @@ public class Main
 	               // System.out.println(s[i]);
 	          }
 	          StringBuffer ss=new StringBuffer();
-	          ss.append("]}\t\n");
+	          ss.append("]},");
 	          out.write(ss.toString().getBytes("utf-8"));
 	          out.close();
 	    }
