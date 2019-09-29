@@ -6,13 +6,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 //import org.json.simple.JSONArray;
 
-public class Main 
+public class pract 
 {
 		public static void main(String[] args)
 	    {
 			System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
-			Main m=new Main();
+			pract m=new pract();
 			listg=m.getfile(args[0]);
 			m.write(listg, args[1]);
 	    }
@@ -52,7 +52,7 @@ public class Main
 				File file=new File(filename);
 		        FileOutputStream out=new FileOutputStream(file,true);
 		        StringBuffer sb=new StringBuffer();
-		        sb.append("[\t\n");
+		        sb.append("[");
 		        out.write(sb.toString().getBytes("utf-8"));
 		        out.close();
 				for(int i=0;i<len;i++) 
@@ -90,10 +90,10 @@ public class Main
 	        	    StringBuffer sb=new StringBuffer();
 	        	    if(i==0)
 	        	    {
-	        	    	String st="\t{\t\n\t\t";
+	        	    	String st="{";
 	        	    	sb.append(st);
 	        	    }
-	        	    else if(i>0&&i<3)
+	        	    /*else if(i>0&&i<3)
 	        	    {
 	        	    	String st2="\t\t";
 	        	    	sb.append(st2);
@@ -102,14 +102,14 @@ public class Main
 	        	    {
 	        	    	String st3="\t\t\t";
 	        	    	sb.append(st3);
-	        	    }
+	        	    }*/
 	                sb.append(s[i]);
 	                out.write(sb.toString().getBytes("utf-8"));
-	                out.write("\t\n".getBytes("utf-8"));
+	                //out.write("\t\n".getBytes("utf-8"));
 	               // System.out.println(s[i]);
 	          }
 	          StringBuffer ss=new StringBuffer();
-	          ss.append("\t\n\t\t]\t\n\t}\t\n");
+	          ss.append("}");
 	          out.write(ss.toString().getBytes("utf-8"));
 	          out.close();
 	    }
