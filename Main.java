@@ -212,9 +212,9 @@ public class Main
 
 	    }
 
-		ArrayList<Character> list=new ArrayList<Character>();
-
-        public String[] transfer(String str) 
+            
+	     ArrayList<Character> list=new ArrayList<Character>();   
+            public String[] transfer(String str) 
 
 		{
 
@@ -402,24 +402,22 @@ public class Main
 
 			}
 
-			if(p.prov[pnum].length==i+1)
+			if(p.prov[pnum].length==i)
 
 			{
-
 				if(pnum>=23&&pnum<=26)
-
 				{
-
-					s[4]=p.prov[pnum][0]+"市";
-
+					s[4]="\"";
+					s[4]=s[4]+p.prov[pnum][0];
+					s[4]=s[4]+"市";
 				}
-
 			}
-
 			s[4]=s[4]+"\",";
-
 			System.out.println(s[4]);
-
+			if(list.get(0)=='市')
+			{
+				list.remove(0);
+			}
 			//县级
 
 			f="";
@@ -563,52 +561,33 @@ public class Main
 		        System.out.println("s[8]="+s[8]);
 
 			}
-
-		   
-
 			f="";
-
 			for(;!list.isEmpty();)
-
 			{
-
 				if(list.get(0)!='.')
-
 				{
-
 					f=f+list.get(0);
-
 				}
-
 				list.remove(0);
-
 			}
-
 			
-
 			if(str.charAt(0)=='2')
-
 			{
-
 				s[9]="\""+f;
-
 				s[9]=s[9]+"\"";
-
+				System.out.println(s[9]);
 			}
-
 			else
-
 			{
-
 				s[7]="\""+f;
-
 				s[7]=s[7]+"\"";
-
+				 System.out.println(s[7]);
 			}
-
+			
 			return s;
 
 		}
+
 
 		public static boolean isDigit(char ch)
 
