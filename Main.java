@@ -6,13 +6,13 @@ import java.io.File;
 import java.io.FileOutputStream;
 //import org.json.simple.JSONArray;
 
-public class pract 
+public class Main 
 {
 		public static void main(String[] args)
 	    {
 			System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
-			pract m=new pract();
+			Main m=new Main();
 			listg=m.getfile(args[0]);
 			m.write(listg, args[1]);
 	    }
@@ -51,9 +51,9 @@ public class pract
 				int len=listg.size();
 				File file=new File(filename);
 		        FileOutputStream out=new FileOutputStream(file,true);
-		        StringBuffer sb=new StringBuffer();
-		        sb.append("[");
-		        out.write(sb.toString().getBytes("utf-8"));
+		        //StringBuffer sb=new StringBuffer();
+		       // sb.append("[");
+		        //out.write(sb.toString().getBytes("utf-8"));
 		        out.close();
 				for(int i=0;i<len;i++) 
 				{
@@ -69,9 +69,9 @@ public class pract
 					StringBufferDemo(s,l,filename);
 				}
 				FileOutputStream out2=new FileOutputStream(file,true);
-		        StringBuffer ss=new StringBuffer();
-		        ss.append("]\t\n");
-		        out2.write(ss.toString().getBytes("utf-8"));
+		        //StringBuffer ss=new StringBuffer();
+		        //ss.append("]\t\n");
+		       // out2.write(ss.toString().getBytes("utf-8"));
 		        out2.close();
 			}
 			catch(IOException e)
@@ -109,7 +109,7 @@ public class pract
 	               // System.out.println(s[i]);
 	          }
 	          StringBuffer ss=new StringBuffer();
-	          ss.append("}");
+	          ss.append("]}\t\n");
 	          out.write(ss.toString().getBytes("utf-8"));
 	          out.close();
 	    }
@@ -125,7 +125,7 @@ public class pract
 				Character Ch=new Character(ch);
 				list.add(Ch);
 			}
-			s[0]="\"姓名\": \"";
+			s[0]="\"姓名\":\"";
 			for(i=0;i<list.size();)//名字
 			{
 				if(list.get(i)==',')
@@ -144,7 +144,7 @@ public class pract
 			System.out.println(s[0]);
 			
 			int flag=0;
-			s[1]="\"手机\": \"";
+			s[1]="\"手机\":\"";
 			for(i=0;i<list.size();i++)//手机号
 			{
 				
@@ -169,7 +169,7 @@ public class pract
 			}
 			s[1]=s[1]+"\",";
 			System.out.println(s[1]);
-			s[2]="\"地址\": [";
+			s[2]="\"地址\":[";
 			//省
 			String sflag="";
 			sflag=sflag+list.get(0);
@@ -440,10 +440,9 @@ class p
 			    "和平区","河东区","河西区","南开区","河北区","红桥区","滨海新区","东丽区","西青区","津南区",
 			    "北辰区","武清区","宝坻区","宁河区","静海区","蓟州区",},
 		{"重庆",
-			    "万州区","黔江区","涪陵区","渝中区","大"
-			    		+ ""
-			    		+ "渡口区","江北区","沙坪坝区","九龙坡区","南岸区","北碚区","渝北区","巴南区",
-			    "长寿区","江津区","合川区","永川区","南川区","綦江区","大足区","璧山区","铜梁区","潼南区","荣昌区","开州区","梁平区","武隆区",},
+			    "万州区","黔江区","涪陵区","渝中区","大渡口区","江北区","沙坪坝区","九龙坡区","南岸区","北碚区",
+			    "渝北区","巴南区","长寿区","江津区","合川区","永川区","南川区","綦江区","大足区","璧山区","铜梁区",
+			    "潼南区","荣昌区","开州区","梁平区","武隆区",},
 		{"内蒙古自治区",
 			             "呼和浩特市","包头市","乌海市","赤峰市","通辽市","鄂尔多斯市","呼伦贝尔市","巴彦淖尔市","乌兰察布市",},
 		{"广西壮族自治区",  
