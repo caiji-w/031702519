@@ -90,7 +90,7 @@ public class Main
 	        	    StringBuffer sb=new StringBuffer();
 	        	    if(i==0)
 	        	    {
-	        	    	String st="{"level": 1,";
+	        	    	String st="{\"level\": \"1\",";
 	        	    	sb.append(st);
 	        	    }
 	        	    /*else if(i>0&&i<3)
