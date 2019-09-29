@@ -10,11 +10,11 @@ public class Main
 {
 		public static void main(String[] args)
 	    {
-			System.out.println(args[3]+args[4]);
+			System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
 			Main m=new Main();
-			listg=m.getfile(args[3]);
-			m.write(listg, args[4]);
+			listg=m.getfile(args[0]);
+			m.write(listg, args[1]);
 	    }
 		@SuppressWarnings("finally")
 		public ArrayList<String> getfile(String filename)
