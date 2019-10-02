@@ -1,6 +1,7 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+//import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -16,7 +17,7 @@ public class Main
 {
 		public static void main(String[] args)
 	    {
-			//System.out.println(args[0]+args[1]);
+			//System.out.println(args[3]+args[4]);
 			ArrayList<String> listg;
 			Main m=new Main();
 			listg=m.getfile(args[0]);
@@ -99,6 +100,7 @@ public class Main
 		{
 			int len=str.length();
 			int i=0;
+			//System.out.println(str);
 			String [] s=new String[20];
 			for(i=2;i<len;i++)
 			{
@@ -153,7 +155,7 @@ public class Main
 			s[2]="";
 			for(i=0;i<32;i++)
 			{
-			    f=p.prov[i][0].substring(0, 2);
+			    f=p.prov[i][0].substring(0,2);
 				if(cmp(f,sflag)=="")
 				{
 				    s[2]=s[2]+p.prov[i][0];
@@ -163,8 +165,10 @@ public class Main
 			}
 			if(i>=32)
 			{
-			     System.out.println("wrong! province dose not exist");
-			     System.exit(1);
+			     //System.out.println("wrong! province dose not exist");
+			     //System.out.println(sflag);
+			     //System.exit(1);
+				i=0;
 			}
 			//System.out.println(s[2]);
 			int pnum=i;//市，自治州
@@ -423,53 +427,29 @@ class p
 			    	"福州市","厦门市","泉州市","莆田市","漳州市","宁德市","南平市","三明市","龙岩市",},
 
 		{"台湾省",
-
 			    	"台北市","新北市","桃园市","台中市","台南市","高雄市",},//20
-
 		{"湖北省",
-
 			    	"武汉市","黄石市","襄阳市","荆州市","宜昌市","十堰市",
-
 			    	"孝感市","荆门市","鄂州市","黄冈市","咸宁市","随州市",},
-
 		{"湖南省",
-
 			    	"长沙市","株洲市","湘潭市","衡阳市","邵阳市","岳阳市","常德市",
-
 			    	"张家界市","益阳市","娄底市","郴州市","永州市","怀化市","湘西土家族苗族自治州",},
-
 		{"黑龙江省",
-
 			    	"哈尔滨市","齐齐哈尔市","牡丹江市","佳木斯市","大庆市","鸡西市",
-
 			    	"双鸭山市","伊春市","七台河市","鹤岗市","黑河市","绥化市","大兴安岭地区",},
-
 		{"北京",
-
 			    "东城区","西城区","朝阳区","丰台区","石景山区","海淀区","顺义区","通州区","大兴区",
-
 			    "房山区","门头沟区","昌平区","平谷区","密云区","怀柔区","延庆区",},
-
 		{"上海",
-
 			    "黄浦区","徐汇区","长宁区","静安区","普陀区","虹口区","杨浦区","宝山区","闵行区","嘉定区","松江区",
-
 			    "青浦区","奉贤区","金山区","浦东新区","崇明区",},
-
 		{"天津",
-
 			    "和平区","河东区","河西区","南开区","河北区","红桥区","滨海新区","东丽区","西青区","津南区",
-
 			    "北辰区","武清区","宝坻区","宁河区","静海区","蓟州区",},
-
 		{"重庆",
-
 			    "万州区","黔江区","涪陵区","渝中区","大渡口区","江北区","沙坪坝区","九龙坡区","南岸区","北碚区",
-
 			    "渝北区","巴南区","长寿区","江津区","合川区","永川区","南川区","綦江区","大足区","璧山区","铜梁区",
-
 			    "潼南区","荣昌区","开州区","梁平区","武隆区",},
-
 		{"内蒙古自治区",
 			             "呼和浩特市","包头市","乌海市","赤峰市","通辽市","鄂尔多斯市","呼伦贝尔市","巴彦淖尔市","乌兰察布市",},
 		{"广西壮族自治区",  
