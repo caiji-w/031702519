@@ -16,7 +16,7 @@ public class Main
 {
 		public static void main(String[] args)
 	    {
-			System.out.println(args[0]+args[1]);
+			//System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
 			Main m=new Main();
 			listg=m.getfile(args[0]);
@@ -34,7 +34,7 @@ public class Main
 	            String str=null;
 	            while ((str = in.readLine())!= null) 
 	            {
-	                System.out.println(str);
+	                //System.out.println(str);
 	                String st=str;
 	                listg.add(st);
 	            } 
@@ -60,6 +60,7 @@ public class Main
 				{
 					Map m1 = new LinkedHashMap();
 					String[] s=transfer(listg.get(i));
+					m1.put("level",listg.get(i).charAt(0) );
 					m1.put("姓名",s[0]);
 					m1.put("手机",s[1]);
 					JSONArray li = new JSONArray();
@@ -121,7 +122,7 @@ public class Main
 			{
 				System.out.println("lack of ,");
 			}
-			System.out.println(s[0]);
+			//System.out.println(s[0]);
 			int flag=0;
 			s[1]="";
 			for(i=0;i<list.size();i++)//手机号
@@ -145,7 +146,7 @@ public class Main
 					break;
 				}
 			}
-			System.out.println(s[1]);
+			//System.out.println(s[1]);
 			String sflag="";
 			sflag=sflag+list.get(0);
 			sflag=sflag+list.get(1);
@@ -165,18 +166,19 @@ public class Main
 			     System.out.println("wrong! province dose not exist");
 			     System.exit(1);
 			}
-			System.out.println(s[2]);
+			//System.out.println(s[2]);
 			int pnum=i;//市，自治州
 			sflag="";
 			sflag=sflag+list.get(0);
 			sflag=sflag+list.get(1);
 			f="";
+			s[3]="";
 			for(i=1;i<p.prov[pnum].length;i++)
 			{
 			    f=p.prov[pnum][i].substring(0, 2);
 				if(cmp(f,sflag)=="")
 				{
-				    s[3]=""+p.prov[pnum][i];
+				    s[3]=p.prov[pnum][i];
 				    delete(p.prov[pnum][i]);
 					break;
 				}
@@ -192,7 +194,7 @@ public class Main
 			{
 				list.remove(0);
 			}
-			System.out.println(s[3]);
+			//System.out.println(s[3]);
 			//县级
 			f="";
 			s[4]="";
@@ -209,7 +211,7 @@ public class Main
 				}
 			}
 			s[4]=s[4]+f;
-			System.out.println(s[4]);
+			//System.out.println(s[4]);
 			f="";
 			s[5]="";
 			for(i=0;i<list.size();i++)
@@ -225,7 +227,7 @@ public class Main
 				}
 			}
 			s[5]=s[5]+f;
-			System.out.println(s[6]);
+			//System.out.println(s[6]);
 		    if(str.charAt(0)=='2')
 		    {   
 		    	f="";
@@ -242,7 +244,7 @@ public class Main
 					}
 				}
 				s[6]=""+f;
-				System.out.println("s[6]="+s[6]);
+				//System.out.println("s[6]="+s[6]);
 				f="";
 				for(i=0;i<list.size();i++)
 				{
@@ -257,7 +259,7 @@ public class Main
 					}
 				}
 				s[7]=""+f;		
-		        System.out.println("s[7]="+s[7]);
+		        //System.out.println("s[7]="+s[7]);
 			}
 			f="";
 			for(;!list.isEmpty();)
@@ -484,3 +486,4 @@ class p
 
 			        	"拉萨市","日喀则市","山南市","林芝市","昌都市","那曲市和阿里地区",},//32
 	};
+}
