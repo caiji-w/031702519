@@ -4,12 +4,19 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
-//import org.json.simple.JSONArray;
+import org.json.simple.JSONArray;
+//import org.json.simple.JSONObject;
+import java.util.List;
+//import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import org.json.simple.JSONValue;
 public class Main 
 {
 		public static void main(String[] args)
 	    {
-			//System.out.println(args[0]+args[1]);
+			System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
 			Main m=new Main();
 			listg=m.getfile(args[0]);
@@ -24,542 +31,233 @@ public class Main
 	        {
 
 	            BufferedReader in = new BufferedReader(new FileReader(filename));
-
 	            String str=null;
-
 	            while ((str = in.readLine())!= null) 
-
 	            {
-
 	                System.out.println(str);
-
 	                String st=str;
-
 	                listg.add(st);
-
 	            } 
-
 	            in.close();
-
 	        } 
-
 	        catch (IOException e) 
-
 	        {
-
 	            e.printStackTrace();
-
 	        }
-
 			finally
-
 			{
-
 				return listg;
-
 			}
-
 		}
-
 		public void write(ArrayList<String> listg,String filename)
-
 		{
-
 			//filename="D:\\E\\javapra\\2.txt";
-
 			try 
-
 			{
-
-				int l=10;
-
 				int len=listg.size();
-
-				File file=new File(filename);
-
-		        FileOutputStream out=new FileOutputStream(file,true);
-
-		        StringBuffer sb=new StringBuffer();
-
-		        sb.append("[");
-
-		        out.write(sb.toString().getBytes("utf-8"));
-
-		        out.close();
-
+		        List l1 = new LinkedList();
 				for(int i=0;i<len;i++) 
-
 				{
-
-					if(listg.get(i).charAt(0)=='1')
-
-					{
-
-						l=8;
-
-					}
-
-					else
-
-					{
-
-						l=10;
-
-					}
-
+					Map m1 = new LinkedHashMap();
 					String[] s=transfer(listg.get(i));
-					StringBufferDemo(s,l,filename);
-					if(i!=len-1)
-
-					{   FileOutputStream out3=new FileOutputStream(file,true);
-						StringBuffer a=new StringBuffer();
-
-			        a.append(",\t\n");
-
-			        out3.write(a.toString().getBytes("utf-8"));
-
-			        out3.close();}
-
-				}
-
-				FileOutputStream out2=new FileOutputStream(file,true);
-
-		        StringBuffer ss=new StringBuffer();
-
-		        ss.append("]");
-
-		        out2.write(ss.toString().getBytes("utf-8"));
-
-		        out2.close();
-
-			}
-
-			catch(IOException e)
-
-			{
-
-				System.out.print("wrong");
-
-				e.printStackTrace();
-
-				
-
-			}
-
-		}
-
-		public void StringBufferDemo(String[] s,int l,String filename) throws IOException
-
-	    {
-
-	          File file=new File(filename);
-
-	          FileOutputStream out=new FileOutputStream(file,true);
-
-	          for(int i=0;i<l;i++)
-
-	          {
-
-	        	    StringBuffer sb=new StringBuffer();
-
-	        	    if(i==0)
-
-	        	    {
-
-	        	    	String st="{";
-
-	        	    	sb.append(st);
-
-	        	    }
-
-	        	    /*else if(i>0&&i<3)
-
-	        	    {
-
-	        	    	String st2="\t\t";
-
-	        	    	sb.append(st2);
-
-	        	    }
-
-	        	    else if(i>=3)
-
-	        	    {
-
-	        	    	String st3="\t\t\t";
-
-	        	    	sb.append(st3);
-
-	        	    }*/
-
-	                sb.append(s[i]);
-
-	                out.write(sb.toString().getBytes("utf-8"));
-
-	                //out.write("\t\n".getBytes("utf-8"));
-
-	               // System.out.println(s[i]);
-
-	          }
-
-	          StringBuffer ss=new StringBuffer();
-
-	          ss.append("]}");
-
-	          out.write(ss.toString().getBytes("utf-8"));
-
-	          out.close();
-
-	    }
-
-            
-	     ArrayList<Character> list=new ArrayList<Character>();   
-            public String[] transfer(String str) 
-
-		{
-
-			int len=str.length();
-
-			int i=0;
-
-			String [] s=new String[20];
-
-			for(i=2;i<len;i++)
-
-			{
-
-				char ch=str.charAt(i);
-
-				Character Ch=new Character(ch);
-
-				list.add(Ch);
-
-			}
-
-			s[0]="\"姓名\":\"";
-
-			for(i=0;i<list.size();)//名字
-
-			{
-
-				if(list.get(i)==',')
-
-				{
-
-					list.remove(i);
-
-					break;
-
-				}
-
-				s[0]=s[0]+list.get(i);
-
-				list.remove(i);
-
-			}
-
-			if(i+1==list.size())
-
-			{
-
-				System.out.println("lack of ,");
-
-			}
-
-			s[0]=s[0]+"\",";
-
-			System.out.println(s[0]);
-
-			
-
-			int flag=0;
-
-			s[1]="\"手机\":\"";
-
-			for(i=0;i<list.size();i++)//手机号
-
-			{
-
-				
-
-				if(flag>0&&flag<11&&!isDigit(list.get(i)))
-
-				{
-
-					flag=0;
-
-				}
-
-				char ch=list.get(i);
-
-				if(ch>='0'&&ch<='9')
-
-				{
-
-					flag++;
-
-				}
-
-				if(flag==11)
-
-				{
-
-					for(int j=i-10;j<i+1;j++)
-
+					m1.put("姓名",s[0]);
+					m1.put("手机",s[1]);
+					JSONArray li = new JSONArray();
+					li.add(s[2]);
+					li.add(s[3]);
+					li.add(s[4]);
+					li.add(s[5]);
+					if(listg.get(i).charAt(0)=='2')
 					{
-
-						s[1]=s[1]+list.get(i-10);
-
-						list.remove(i-10);
-
+						li.add(s[6]);
+						li.add(s[7]);
+						li.add(s[8]);
 					}
-
-					break;
-
+					else
+					{
+						li.add(s[6]);
+					}
+					m1.put("地址",li);
+					l1.add(m1);
 				}
-
+				String jsonString = JSONValue.toJSONString(l1);
+				File file=new File(filename);
+		        FileOutputStream out=new FileOutputStream(file,true);
+		        StringBuffer sb=new StringBuffer();
+		        sb.append(jsonString);
+		        out.write(sb.toString().getBytes("utf-8"));
+		        out.close();
 			}
-
-			s[1]=s[1]+"\",";
-
-			System.out.println(s[1]);
-
-			s[2]="\"地址\":[";
-
-			//省
-
-			String sflag="";
-
-			sflag=sflag+list.get(0);
-
-			sflag=sflag+list.get(1);
-
+			catch(IOException e)
+			{
+				e.printStackTrace();	
+			}
+		}
+		ArrayList<Character> list=new ArrayList<Character>();
+        public String[] transfer(String str) 
+		{
+			int len=str.length();
+			int i=0;
+			String [] s=new String[20];
+			for(i=2;i<len;i++)
+			{
+			    char ch=str.charAt(i);
+				Character Ch=new Character(ch);
+				list.add(Ch);
+			}
 			String f="";
-
-			s[3]="\"";
-
-			for(i=0;i<32;i++)
-
+			s[0]="";
+			for(i=0;i<list.size();)//名字
 			{
-
-			    f=p.prov[i][0].substring(0, 2);
-
-				if(cmp(f,sflag)=="")
-
+			    if(list.get(i)==',')
 				{
-
-				    s[3]=s[3]+p.prov[i][0];
-
-				    delete(p.prov[i][0]);
-
+					list.remove(i);
 					break;
-
 				}
-
+				s[0]=s[0]+list.get(i);
+				list.remove(i);
 			}
-
-			s[3]=s[3]+"\",";
-
-			if(i>=32)
-
+			if(i+1==list.size())
 			{
-
-			     System.out.println("wrong! province dose not exist");
-
-			     System.exit(1);
-
+				System.out.println("lack of ,");
 			}
-
-			System.out.println(s[3]);
-
-			int pnum=i;//市，自治州
-
-			sflag="";
-
+			System.out.println(s[0]);
+			int flag=0;
+			s[1]="";
+			for(i=0;i<list.size();i++)//手机号
+			{
+				if(flag>0&&flag<11&&!isDigit(list.get(i)))
+				{
+				    flag=0;
+				}
+				char ch=list.get(i);
+				if(ch>='0'&&ch<='9')
+				{
+					flag++;
+				}
+				if(flag==11)
+				{
+					for(int j=i-10;j<i+1;j++)
+					{
+						s[1]=s[1]+list.get(i-10);
+						list.remove(i-10);
+					}
+					break;
+				}
+			}
+			System.out.println(s[1]);
+			String sflag="";
 			sflag=sflag+list.get(0);
-
 			sflag=sflag+list.get(1);
-
-			f="";
-
-			for(i=1;i<p.prov[pnum].length;i++)
-
+			s[2]="";
+			for(i=0;i<32;i++)
 			{
-
-			    f=p.prov[pnum][i].substring(0, 2);
-
+			    f=p.prov[i][0].substring(0, 2);
 				if(cmp(f,sflag)=="")
-
 				{
-
-				    s[4]="\""+p.prov[pnum][i];
-
-				    delete(p.prov[pnum][i]);
-
+				    s[2]=s[2]+p.prov[i][0];
+				    delete(p.prov[i][0]);
 					break;
-
 				}
-
 			}
-
-			if(p.prov[pnum].length==i)
-
+			if(i>=32)
+			{
+			     System.out.println("wrong! province dose not exist");
+			     System.exit(1);
+			}
+			System.out.println(s[2]);
+			int pnum=i;//市，自治州
+			sflag="";
+			sflag=sflag+list.get(0);
+			sflag=sflag+list.get(1);
+			f="";
+			for(i=1;i<p.prov[pnum].length;i++)
+			{
+			    f=p.prov[pnum][i].substring(0, 2);
+				if(cmp(f,sflag)=="")
+				{
+				    s[3]=""+p.prov[pnum][i];
+				    delete(p.prov[pnum][i]);
+					break;
+				}
+			}
+			if(p.prov[pnum].length==i+1)
 			{
 				if(pnum>=23&&pnum<=26)
 				{
-					s[4]="\"";
-					s[4]=s[4]+p.prov[pnum][0];
-					s[4]=s[4]+"市";
+					s[3]=p.prov[pnum][0]+"市";
 				}
 			}
-			s[4]=s[4]+"\",";
-			System.out.println(s[4]);
 			if(list.get(0)=='市')
 			{
 				list.remove(0);
 			}
+			System.out.println(s[3]);
 			//县级
-
 			f="";
-
-			s[5]="\"";
-
+			s[4]="";
 			for(i=0;i<list.size();i++)
-
 			{
-
 				if(list.get(i)=='县'||list.get(i)=='区')
-
 				{
-
 					for(int j=0;j<=i;j++)
-
 					{
-
 						f=f+list.get(0);
-
 						list.remove(0);
-
 					}
-
 					break;
-
 				}
-
 			}
-
-			s[5]=s[5]+f;
-
-			s[5]=s[5]+"\",";
-
-			System.out.println(s[5]);
-
+			s[4]=s[4]+f;
+			System.out.println(s[4]);
 			f="";
-
-			s[6]="\"";
-
+			s[5]="";
 			for(i=0;i<list.size();i++)
-
 			{
-
 				if(list.get(i)=='镇'||list.get(i)=='乡'||(list.get(i)=='道'&&i-1>=0&&list.get(i-1)=='街'))
-
 				{
-
 					for(int j=0;j<=i;j++)
-
 					{
-
 						f=f+list.get(0);
-
 						list.remove(0);
-
 					}
-
 					break;
-
 				}
-
 			}
-
-			s[6]=s[6]+f;
-
-			s[6]=s[6]+"\",";
-
+			s[5]=s[5]+f;
 			System.out.println(s[6]);
-
-			
-
 		    if(str.charAt(0)=='2')
-
 		    {   
-
 		    	f="";
-
 				for(i=0;i<list.size();i++)
-
 				{
-
 					if(list.get(i)=='街'||list.get(i)=='路'||list.get(i)=='巷')
-
 					{
-
 						for(int j=0;j<=i;j++)
-
 						{
-
 							f=f+list.get(0);
-
 							list.remove(0);
-
 						}
-
 						break;
-
 					}
-
 				}
-
-				s[7]="\""+f;
-
-				s[7]=s[7]+"\",";
-
-				System.out.println("s[7]="+s[7]);
-
+				s[6]=""+f;
+				System.out.println("s[6]="+s[6]);
 				f="";
-
 				for(i=0;i<list.size();i++)
-
 				{
-
 					if(list.get(i)=='号')
-
 					{
-
 						for(int j=0;j<=i;j++)
-
 						{
-
 							f=f+list.get(0);
-
 							list.remove(0);
-
 						}
-
 						break;
-
 					}
-
-					
-
 				}
-
-				s[8]="\""+f;	
-
-		        s[8]=s[8]+"\",";		
-
-		        System.out.println("s[8]="+s[8]);
-
+				s[7]=""+f;		
+		        System.out.println("s[7]="+s[7]);
 			}
 			f="";
 			for(;!list.isEmpty();)
@@ -570,157 +268,76 @@ public class Main
 				}
 				list.remove(0);
 			}
-			
 			if(str.charAt(0)=='2')
 			{
-				s[9]="\""+f;
-				s[9]=s[9]+"\"";
-				System.out.println(s[9]);
+				s[8]=""+f;
 			}
 			else
 			{
-				s[7]="\""+f;
-				s[7]=s[7]+"\"";
-				 System.out.println(s[7]);
+				s[6]=""+f;
 			}
-			
 			return s;
-
 		}
-
-
 		public static boolean isDigit(char ch)
-
 		{
-
 			return (ch>='0'&&ch<='9');
-
 		}
-
 		public static String cmp(String a,String b)
-
 		{
-
 			String re="";
-
 			int len1=a.length();
-
 			int flag=0;
-
 			for(int j=0;j<len1;j++)
-
 			{
-
 				if(a.charAt(j)!=b.charAt(j))
-
 				{
-
 					flag=1;
-
 				}
-
 				if(flag==1)
-
 				{
-
 					re=re+a.charAt(j);
-
 				}
-
 			}
-
 			return re;
-
 		}
-
 		public String delete(String s)
-
 		{
-
 		    int i=0;
-
 		    String str="";
-
 		    int len=s.length();
-
 			for(i=0;i<len;i++)
-
 			{
-
 				if(list.get(0)==s.charAt(i))
-
 				{
-
 					str=str+list.get(0);
-
 					list.remove(0);
-
 				}
-
 				else if(list.get(0)!=s.charAt(i))
-
 				{
-
 					return str;
-
 				}
-
 			}
-
 			return "fail";
-
 		}
-
 }
-
-//["直辖市/省(省级)","直辖市/市(地级)","区/县/县级市(县级)","街道/镇/乡(乡镇级)","详细地址"]
-
-/*地址一定从大到小排序.
-
-省/市级行政区如后缀为“省”/“市”，则有可能省略后缀.
-
-若县级行政区后缀为“县”，则可能缺失整个市级行政区.
-
-除第5条情况外，省市级行政区不会缺失.
-
-县/乡级行政区可能缺失*/
-
 class p
-
 {
-
 	public static String [][] prov=new String[][]
-
 	{
-
 		{"广东省",
-
 			     "广州市","深圳市","珠海市","汕头市","佛山市","韶关市","湛江市","肇庆市",
-
 			     "江门市","茂名市","惠州市","梅州市","汕尾市","河源市","阳江市","清远市",
-
 			     "东莞市","中山市","潮州市","揭阳市","云浮市"},
-
 		{"河北省",
-
 				 "石家庄市", "唐山市","邯郸市","张家口市", "保定市", "秦皇岛市","承德市",
-
 				 "邢台市 ","沧州市", "衡水市 ","廊坊市 ","雄安新区"},
-
 		{"山西省",
-
 				  "太原市","长治市", "大同市","阳泉市","朔州市","临汾市","忻州市","吕梁市",
-
 				  "运城市", "晋中市","晋城市"},
-
 		{"海南省",
-
 				   "三亚市","海口市","三沙市","儋州市","五指山市","文昌市","琼海市","万宁市","东方市"},
-
 		{"四川省",
-
 				  "成都市","绵阳市","自贡市","攀枝花市","泸州市","德阳市","广元市","遂宁市","内江市",
-
 				  "乐山市","资阳市","宜宾市","南充市","达州市","雅安市","广安市","巴中市","眉山市",
 
 				  "阿坝藏族羌族自治州","甘孜藏族自治州","凉山彝族自治州"},
@@ -852,31 +469,18 @@ class p
 			    "潼南区","荣昌区","开州区","梁平区","武隆区",},
 
 		{"内蒙古自治区",
-
 			             "呼和浩特市","包头市","乌海市","赤峰市","通辽市","鄂尔多斯市","呼伦贝尔市","巴彦淖尔市","乌兰察布市",},
-
 		{"广西壮族自治区",  
-
 			          " 南宁市","柳州市","桂林市","梧州市","北海市","防城港市","钦州市",
-
 			          "贵港市","玉林市","百色市","贺州市","河池市","来宾市","崇左市",},
-
 		{"新疆维吾尔自治区",
-
 			        	 "乌鲁木齐市","克拉玛依市","吐鲁番市","哈密市",
-
 			        	 "阿克苏地区","喀什地区","和田地区","塔城地区","阿勒泰地区",
-
 			        	 "昌吉回族自治州","博尔塔拉蒙古自治州","巴音郭楞蒙古自治州","克孜勒苏柯尔克孜自治州","伊犁哈萨克自治州",},//30
-
 		{"宁夏回族自治区",
 
 			        	"银川市","石嘴山市","吴忠市","固原市","中卫市",},
-
 		{"西藏自治区",
 
 			        	"拉萨市","日喀则市","山南市","林芝市","昌都市","那曲市和阿里地区",},//32
-
 	};
-
-}
