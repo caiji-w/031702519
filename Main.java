@@ -53,8 +53,8 @@ public class Main
 		public void write(ArrayList<String> listg,String filename)  throws Exception
 		{
 			//filename="D:\\E\\javapra\\2.txt";
-			//try 
-			//{
+			try 
+			{
 				int len=listg.size();
 		        List l1 = new LinkedList();
 				for(int i=0;i<len;i++) 
@@ -89,11 +89,11 @@ public class Main
 		        sb.append(jsonString);
 		        out.write(sb.toString().getBytes("utf-8"));
 		        out.close();
-			/*}
+			}
 			catch(IOException e)
 			{
 				e.printStackTrace();	
-			}*/
+			}
 		}
 		ArrayList<Character> list=new ArrayList<Character>();
         public String[] transfer(String str) 
