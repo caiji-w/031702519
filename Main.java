@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
-public class Main 
+public class pra 
 {
 		public static void main(String[] args)
 	    {
-			System.out.println(args[0]+args[1]);
+			//System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
-			Main  m=new Main();
+			pra  m=new pra();
 			listg=m.getfile(args[0]);
 			m.write(listg, args[1]);
 	    }
@@ -25,7 +25,7 @@ public class Main
 	            String str=null;
 	            while ((str = in.readLine())!= null) 
 	            {
-	                System.out.println(str);
+	                //System.out.println(str);
 	                String st=str;
 	                listg.add(st);
 	            } 
@@ -141,7 +141,7 @@ public class Main
         public String[] transfer(String str) 
 
 		{
-            System.out.println(str);
+           // System.out.println(str);
 			int len=str.length();
 			int i=0;
 			String [] s=new String[20];
@@ -155,31 +155,18 @@ public class Main
 			for(i=0;i<list.size();)//����
 			{
 				if(list.get(i)==',')
-
 				{
-
 					list.remove(i);
-
 					break;
-
 				}
-
 				s[0]=s[0]+list.get(i);
-
 				list.remove(i);
-
 			}
-
 			if(i+1==list.size())
-
 			{
-
 				System.out.println("lack of ,");
-
 			}
-
 			s[0]=s[0]+"\",";
-
 			//System.out.println(s[0]);
 			int flag=0;
 			s[1]="\"手机\":\"";
@@ -227,6 +214,7 @@ public class Main
 			if(i>=32)
 			{
 			     System.out.println("wrong! province dose not exist");
+			     System.out.println(sflag);
 			    // System.exit(1);
 			      i=1;
 			}
@@ -236,24 +224,27 @@ public class Main
 			sflag=sflag+list.get(0);
 			sflag=sflag+list.get(1);
 			f="";
-			for(i=1;i<p.prov[pnum].length;i++)
+			len=p.prov[pnum].length;
+			s[4]="\"";
+			//System.out.println(sflag);
+			for(i=1;i<len;i++)
 			{
 			    f=p.prov[pnum][i].substring(0, 2);
 				if(cmp(f,sflag)=="")
 				{
 
-				    s[4]="\""+p.prov[pnum][i];
+				    s[4]=s[4]+p.prov[pnum][i];
 				    delete(p.prov[pnum][i]);
 					break;
 				}
 			}
-			if(p.prov[pnum].length==i+1)
+			if(len==i)
 			{
+				//System.out.println(i);
 				if(pnum>=23&&pnum<=26)
-
 				{
-
-					s[4]=p.prov[pnum][0]+"市";
+					s[4]=s[4]+p.prov[pnum][0];
+					s[4]=s[4]+"市";
 				}
 			}
 			s[4]=s[4]+"\",";
@@ -262,8 +253,6 @@ public class Main
 				list.remove(0);
 			}
 			//System.out.println(s[4]);
-
-			//�ؼ�
 			f="";
 			s[5]="\"";
 			for(i=0;i<list.size();i++)
@@ -309,7 +298,7 @@ public class Main
 
 			s[6]=s[6]+"\",";
 
-			System.out.println(s[6]);
+			//System.out.println(s[6]);
 		    if(str.charAt(0)=='2')
 		    {   
 		    	f="";
@@ -327,7 +316,7 @@ public class Main
 				}
 				s[7]="\""+f;
 				s[7]=s[7]+"\",";
-				System.out.println("s[7]="+s[7]);
+			//	System.out.println("s[7]="+s[7]);
 				f="";
 				for(i=0;i<list.size();i++)
 				{
@@ -343,7 +332,7 @@ public class Main
 				}
 				s[8]="\""+f;	
 		        s[8]=s[8]+"\",";		
-		        System.out.println("s[8]="+s[8]);
+		       // System.out.println("s[8]="+s[8]);
 			}
 
 			f="";
