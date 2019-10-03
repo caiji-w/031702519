@@ -1,16 +1,25 @@
 import java.io.BufferedReader;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.Serializable;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
-public class pra 
+import org.json.simple.JSONArray;
+import org.json.simple.JSONObject;
+import java.util.List;
+import java.util.HashMap;
+import java.util.LinkedHashMap;
+import java.util.LinkedList;
+import java.util.Map;
+import org.json.simple.JSONValue;
+public class Main 
 {
 		public static void main(String[] args)
 	    {
-			//System.out.println(args[0]+args[1]);
+			//System.out.println(args[3]+args[4]);
 			ArrayList<String> listg;
-			pra  m=new pra();
+			Main m=new Main();
 			listg=m.getfile(args[0]);
 			m.write(listg, args[1]);
 	    }
@@ -21,6 +30,7 @@ public class pra
 			ArrayList<String> listg=new ArrayList<String>();
 			try 
 	        {
+
 	            BufferedReader in = new BufferedReader(new FileReader(filename));
 	            String str=null;
 	            while ((str = in.readLine())!= null) 
@@ -33,7 +43,7 @@ public class pra
 	        } 
 	        catch (IOException e) 
 	        {
-	           e.printStackTrace();
+	            e.printStackTrace();
 	        }
 			finally
 			{
@@ -45,116 +55,64 @@ public class pra
 			//filename="D:\\E\\javapra\\2.txt";
 			try 
 			{
-				int l=10;
 				int len=listg.size();
-				File file=new File(filename);
-		        FileOutputStream out=new FileOutputStream(file,true);
-		        StringBuffer sb=new StringBuffer();
-		        sb.append("[");
-		        out.write(sb.toString().getBytes("utf-8"));
-		        out.close();
+		        List l1 = new LinkedList();
 				for(int i=0;i<len;i++) 
 				{
-					if(listg.get(i).charAt(0)=='1')
+					Map m1 = new LinkedHashMap();
+					String[] s=transfer(listg.get(i));
+					m1.put("level",listg.get(i).charAt(0) );
+					m1.put("姓名",s[0]);
+					m1.put("手机",s[1]);
+					JSONArray li = new JSONArray();
+					li.add(s[2]);
+					li.add(s[3]);
+					li.add(s[4]);
+					li.add(s[5]);
+					if(listg.get(i).charAt(0)=='2')
 					{
-						l=8;
+						li.add(s[6]);
+						li.add(s[7]);
+						li.add(s[8]);
 					}
 					else
 					{
-					   l=10;
+						li.add(s[6]);
 					}
-					String[] s=transfer(listg.get(i));
-					StringBufferDemo(s,l,filename);
-					if(i!=len-1)
-					{   FileOutputStream out3=new FileOutputStream(file,true);
-						StringBuffer a=new StringBuffer();
-			        a.append(",\t\n");
-			        out3.write(a.toString().getBytes("utf-8"));
-			        out3.close();}
+					m1.put("地址",li);
+					l1.add(m1);
 				}
-				FileOutputStream out2=new FileOutputStream(file,true);
-		        StringBuffer ss=new StringBuffer();
-		        ss.append("]");
-		        out2.write(ss.toString().getBytes("utf-8"));
-		        out2.close();
+				String jsonString = JSONValue.toJSONString(l1);
+				File file=new File(filename);
+		        FileOutputStream out=new FileOutputStream(file,true);
+		        StringBuffer sb=new StringBuffer();
+		        sb.append(jsonString);
+		        out.write(sb.toString().getBytes("utf-8"));
+		        out.close();
 			}
 			catch(IOException e)
 			{
-				System.out.print("wrong");
-				e.printStackTrace();
+				e.printStackTrace();	
 			}
 		}
-		public void StringBufferDemo(String[] s,int l,String filename) throws IOException
-	    {
-	          File file=new File(filename);
-	          FileOutputStream out=new FileOutputStream(file,true);
-	          for(int i=0;i<l;i++)
-	          {
-	        	    StringBuffer sb=new StringBuffer();
-	        	    if(i==0)
-	        	    {
-	        	    	String st="{";
-	        	    	sb.append(st);
-	        	    }
-	        	    /*else if(i>0&&i<3)
-
-	        	    {
-
-	        	    	String st2="\t\t";
-
-	        	    	sb.append(st2);
-
-	        	    }
-
-	        	    else if(i>=3)
-
-	        	    {
-
-	        	    	String st3="\t\t\t";
-
-	        	    	sb.append(st3);
-
-	        	    }*/
-
-	                sb.append(s[i]);
-
-	                out.write(sb.toString().getBytes("utf-8"));
-
-	                //out.write("\t\n".getBytes("utf-8"));
-
-	               // System.out.println(s[i]);
-
-	          }
-
-	          StringBuffer ss=new StringBuffer();
-
-	          ss.append("]}");
-
-	          out.write(ss.toString().getBytes("utf-8"));
-
-	          out.close();
-
-	    }
-
 		ArrayList<Character> list=new ArrayList<Character>();
-
         public String[] transfer(String str) 
-
 		{
-           // System.out.println(str);
 			int len=str.length();
 			int i=0;
+			//System.out.println(str);
 			String [] s=new String[20];
 			for(i=2;i<len;i++)
 			{
-				char ch=str.charAt(i);
+			    char ch=str.charAt(i);
 				Character Ch=new Character(ch);
 				list.add(Ch);
 			}
-			s[0]="\"姓名\":\"";
-			for(i=0;i<list.size();)//����
+			String f="";
+			s[0]="";
+			for(i=0;i<list.size();)//名字
 			{
-				if(list.get(i)==',')
+			    if(list.get(i)==',')
 				{
 					list.remove(i);
 					break;
@@ -166,15 +124,14 @@ public class pra
 			{
 				System.out.println("lack of ,");
 			}
-			s[0]=s[0]+"\",";
 			//System.out.println(s[0]);
 			int flag=0;
-			s[1]="\"手机\":\"";
-			for(i=0;i<list.size();i++)//�ֻ���
+			s[1]="";
+			for(i=0;i<list.size();i++)//手机号
 			{
 				if(flag>0&&flag<11&&!isDigit(list.get(i)))
 				{
-					flag=0;
+				    flag=0;
 				}
 				char ch=list.get(i);
 				if(ch>='0'&&ch<='9')
@@ -191,73 +148,80 @@ public class pra
 					break;
 				}
 			}
-			s[1]=s[1]+"\",";
 			//System.out.println(s[1]);
-			s[2]="\"地址ַ\":[";
-			//ʡ
 			String sflag="";
 			sflag=sflag+list.get(0);
 			sflag=sflag+list.get(1);
-			String f="";
-			s[3]="\"";
+			s[2]="";
 			for(i=0;i<32;i++)
 			{
-			    f=p.prov[i][0].substring(0, 2);
+			    f=p.prov[i][0].substring(0,2);
 				if(cmp(f,sflag)=="")
 				{
-				    s[3]=s[3]+p.prov[i][0];
+				    s[2]=s[2]+p.prov[i][0];
 				    delete(p.prov[i][0]);
 					break;
 				}
 			}
-			s[3]=s[3]+"\",";
 			if(i>=32)
 			{
 			     System.out.println("wrong! province dose not exist");
 			     System.out.println(sflag);
-			    // System.exit(1);
-			      i=1;
+			     //System.exit(1);
+				 i=0;
 			}
-			//System.out.println(s[3]);
-			int pnum=i;
+			//System.out.println(s[2]);
+			int pnum=i;//市，自治州
 			sflag="";
 			sflag=sflag+list.get(0);
 			sflag=sflag+list.get(1);
 			f="";
+			s[3]="";
 			len=p.prov[pnum].length;
-			s[4]="\"";
-			//System.out.println(sflag);
-			for(i=1;i<len;i++)
+			for(i=1;i<p.prov[pnum].length;i++)
 			{
 			    f=p.prov[pnum][i].substring(0, 2);
 				if(cmp(f,sflag)=="")
 				{
-
-				    s[4]=s[4]+p.prov[pnum][i];
+				    s[3]=p.prov[pnum][i];
 				    delete(p.prov[pnum][i]);
 					break;
 				}
 			}
 			if(len==i)
 			{
-				//System.out.println(i);
 				if(pnum>=23&&pnum<=26)
 				{
-					s[4]=s[4]+p.prov[pnum][0];
-					s[4]=s[4]+"市";
+					s[3]=p.prov[pnum][0]+"市";
 				}
 			}
-			s[4]=s[4]+"\",";
 			if(list.get(0)=='市')
 			{
 				list.remove(0);
 			}
-			//System.out.println(s[4]);
+			//System.out.println(s[3]);
+			//县级
 			f="";
-			s[5]="\"";
+			s[4]="";
 			for(i=0;i<list.size();i++)
 			{
-				if((list.get(i)=='县')||(list.get(i)=='区'))
+				if(list.get(i)=='县'||list.get(i)=='区')
+				{
+					for(int j=0;j<=i;j++)
+					{
+						f=f+list.get(0);
+						list.remove(0);
+					}
+					break;
+				}
+			}
+			s[4]=s[4]+f;
+			//System.out.println(s[4]);
+			f="";
+			s[5]="";
+			for(i=0;i<list.size();i++)
+			{
+				if(list.get(i)=='镇'||list.get(i)=='乡'||(list.get(i)=='道'&&i-1>=0&&list.get(i-1)=='街'))
 				{
 					for(int j=0;j<=i;j++)
 					{
@@ -268,36 +232,6 @@ public class pra
 				}
 			}
 			s[5]=s[5]+f;
-			s[5]=s[5]+"\",";
-			//System.out.println(s[5]);
-			f="";
-			s[6]="\"";
-			for(i=0;i<list.size();i++)
-			{
-				if(list.get(i)=='镇'||list.get(i)=='乡'||(list.get(i)=='街'&&i-1>=0&&list.get(i-1)=='道'))
-
-				{
-
-					for(int j=0;j<=i;j++)
-
-					{
-
-						f=f+list.get(0);
-
-						list.remove(0);
-
-					}
-
-					break;
-
-				}
-
-			}
-
-			s[6]=s[6]+f;
-
-			s[6]=s[6]+"\",";
-
 			//System.out.println(s[6]);
 		    if(str.charAt(0)=='2')
 		    {   
@@ -314,9 +248,8 @@ public class pra
 						break;
 					}
 				}
-				s[7]="\""+f;
-				s[7]=s[7]+"\",";
-			//	System.out.println("s[7]="+s[7]);
+				s[6]=""+f;
+				//System.out.println("s[6]="+s[6]);
 				f="";
 				for(i=0;i<list.size();i++)
 				{
@@ -330,138 +263,70 @@ public class pra
 						break;
 					}
 				}
-				s[8]="\""+f;	
-		        s[8]=s[8]+"\",";		
-		       // System.out.println("s[8]="+s[8]);
+				s[7]=""+f;		
+		        //System.out.println("s[7]="+s[7]);
 			}
-
 			f="";
-
 			for(;!list.isEmpty();)
-
 			{
-
 				if(list.get(0)!='.')
-
 				{
-
 					f=f+list.get(0);
-
 				}
-
 				list.remove(0);
-
 			}
-
-			
-
 			if(str.charAt(0)=='2')
-
 			{
-
-				s[9]="\""+f;
-
-				s[9]=s[9]+"\"";
-
+				s[8]=""+f;
 			}
-
 			else
-
 			{
-
-				s[7]="\""+f;
-
-				s[7]=s[7]+"\"";
-
+				s[6]=""+f;
 			}
-
 			return s;
-
 		}
-
 		public static boolean isDigit(char ch)
-
 		{
-
 			return (ch>='0'&&ch<='9');
-
 		}
-
 		public static String cmp(String a,String b)
-
 		{
-
 			String re="";
-
 			int len1=a.length();
-
 			int flag=0;
-
 			for(int j=0;j<len1;j++)
-
 			{
-
 				if(a.charAt(j)!=b.charAt(j))
-
 				{
-
 					flag=1;
-
 				}
-
 				if(flag==1)
-
 				{
-
 					re=re+a.charAt(j);
-
 				}
-
 			}
-
 			return re;
-
 		}
-
 		public String delete(String s)
-
 		{
-
 		    int i=0;
-
 		    String str="";
-
 		    int len=s.length();
-
 			for(i=0;i<len;i++)
-
 			{
-
 				if(list.get(0)==s.charAt(i))
-
 				{
-
 					str=str+list.get(0);
-
 					list.remove(0);
-
 				}
-
 				else if(list.get(0)!=s.charAt(i))
-
 				{
-
 					return str;
-
 				}
-
 			}
-
 			return "fail";
-
 		}
 }
-
 class p
 {
 	public static String [][] prov=new String[][]
@@ -522,13 +387,13 @@ class p
 
 					"贵阳市","六盘水市","遵义市","安顺市","铜仁市","毕节市","黔南布依族苗族自治州", "黔西南布依族苗族自治州", 
 
-                 "贵州黔东南苗族侗族自治州",},
+                    "贵州黔东南苗族侗族自治州",},
 
 		{"山东省",
 
-                 "济南市","青岛市","淄博市","枣庄市","东营市","烟台市","潍坊市","济宁市","泰安市",
+                    "济南市","青岛市","淄博市","枣庄市","东营市","烟台市","潍坊市","济宁市","泰安市",
 
-                 "威海市","日照市","滨州市","德州市","聊城市","临沂市","菏泽市","莱芜市",},
+                    "威海市","日照市","滨州市","德州市","聊城市","临沂市","菏泽市","莱芜市",},
 
 		{"河南省",
 
