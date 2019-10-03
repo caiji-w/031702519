@@ -4,13 +4,13 @@ import java.io.IOException;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
-public class pra 
+public class Main 
 {
 		public static void main(String[] args)
 	    {
 			System.out.println(args[0]+args[1]);
 			ArrayList<String> listg;
-			pra  m=new pra();
+			Main  m=new Main();
 			listg=m.getfile(args[0]);
 			m.write(listg, args[1]);
 	    }
