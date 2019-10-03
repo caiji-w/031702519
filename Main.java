@@ -1,7 +1,10 @@
 import java.io.BufferedReader;
+import java.io.BufferedWriter;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.OutputStreamWriter;
 import java.io.Serializable;
+import java.nio.charset.StandardCharsets;
 import java.util.ArrayList;
 import java.io.File;
 import java.io.FileOutputStream;
@@ -15,7 +18,7 @@ import java.util.Map;
 import org.json.simple.JSONValue;
 public class Main 
 {
-		public static void main(String[] args)
+		public static void main(String[] args) throws Exception
 	    {
 			//System.out.println(args[3]+args[4]);
 			ArrayList<String> listg;
@@ -50,11 +53,11 @@ public class Main
 				return listg;
 			}
 		}
-		public void write(ArrayList<String> listg,String filename)  throws Exception
+		public void write(ArrayList<String> listg,String filename) throws Exception
 		{
 			//filename="D:\\E\\javapra\\2.txt";
-			try 
-			{
+			//try 
+			//{
 				int len=listg.size();
 		        List l1 = new LinkedList();
 				for(int i=0;i<len;i++) 
@@ -84,16 +87,23 @@ public class Main
 				}
 				String jsonString = JSONValue.toJSONString(l1);
 				File file=new File(filename);
-		        FileOutputStream out=new FileOutputStream(file,true);
-		        StringBuffer sb=new StringBuffer();
-		        sb.append(jsonString);
-		        out.write(sb.toString().getBytes("utf-8"));
-		        out.close();
-			}
+				 BufferedWriter writer=
+			                new BufferedWriter(new OutputStreamWriter(new FileOutputStream(file),StandardCharsets.UTF_8));
+				 writer.write(jsonString.toString());
+
+			        writer.flush();
+
+			        writer.close();
+		        //FileOutputStream out=new FileOutputStream(file,true);
+		        //StringBuffer sb=new StringBuffer();
+		        //sb.append(jsonString);
+		       // out.write(sb.toString().getBytes("utf-8"));
+		        //out.close();
+			/*}
 			catch(IOException e)
 			{
 				e.printStackTrace();	
-			}
+			}*/
 		}
 		ArrayList<Character> list=new ArrayList<Character>();
         public String[] transfer(String str) 
